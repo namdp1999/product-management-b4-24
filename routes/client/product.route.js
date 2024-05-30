@@ -1,21 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.render("client/pages/products/index");
-});
+const controller = require("../../controllers/client/product.controller");
+
+router.get("/", controller.index);
 
 // Ví dụ
-// router.post("/create", (req, res) => {
-//   res.render("client/pages/products/create");
-// });
+// router.post("/create", controller.create);
 
-// router.patch("/edit", (req, res) => {
-//   res.render("client/pages/products/edit");
-// });
+// router.patch("/edit", controller.edit);
 
-// router.get("/detail", (req, res) => {
-//   res.render("client/pages/products/detail");
-// });
+// router.get("/detail", controller.detail);
 
 module.exports = router;
