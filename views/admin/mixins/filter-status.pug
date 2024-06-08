@@ -1,0 +1,6 @@
+mixin filter-status(listStatus)
+  each item in listStatus
+    button(
+      class="btn btn-sm ml-1 btn-outline-success"
+      button-status=item.value
+    ) #{item.label}
