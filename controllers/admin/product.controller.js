@@ -34,7 +34,27 @@ module.exports.index = async (req, res) => {
   }
   // Hết Tìm kiếm
 
-  const products = await Product.find(find);
+  // Phân trang
+  const pagination = {
+    currentPage: 1,
+    limitItems: 4
+  };
+
+  if(req.query.page) {
+    pagination.currentPage = parseInt(req.query.page);
+  }
+
+  pagination.skip = (pagination.currentPage - 1) * pagination.limitItems;
+
+  const countProducts = await Product.countDocuments(find);
+  const totalPage = Math.ceil(countProducts/pagination.limitItems);
+  pagination.totalPage = totalPage;
+  // Hết Phân trang
+
+  const products = await Product
+    .find(find)
+    .limit(pagination.limitItems)
+    .skip(pagination.skip);
 
   // console.log(products);
 
@@ -42,6 +62,7 @@ module.exports.index = async (req, res) => {
     pageTitle: "Quản lý sản phẩm",
     products: products,
     keyword: keyword,
-    filterStatus: filterStatus
+    filterStatus: filterStatus,
+    pagination: pagination
   });
 }
