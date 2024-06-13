@@ -1,5 +1,6 @@
 const express = require("express");
 require('dotenv').config();
+const bodyParser = require('body-parser');
 
 const database = require("./config/database");
 database.connect();
@@ -10,6 +11,9 @@ const systemConfig = require("./config/system");
 
 const app = express();
 const port = process.env.PORT;
+
+// parse application/json
+app.use(bodyParser.json());
 
 app.set("views", "./views");
 app.set("view engine", "pug");
