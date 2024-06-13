@@ -70,3 +70,10 @@ module.exports.changeStatus = async (req, res) => {
     code: 200
   });
 }
+
+// [PATCH] /admin/products/change-multi
+module.exports.changeMulti = async (req, res) => {
+  res.json({
+    code: 200
+  });
+}
