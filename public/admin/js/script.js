@@ -168,7 +168,7 @@ if(listButtonDelete.length > 0) {
       console.log(id);
 
       fetch(`/admin/products/delete/${id}`, {
-        method: "DELETE"
+        method: "PATCH"
       })
         .then(res => res.json())
         .then(data => {
