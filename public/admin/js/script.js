@@ -164,10 +164,9 @@ const listButtonDelete = document.querySelectorAll("[button-delete]");
 if(listButtonDelete.length > 0) {
   listButtonDelete.forEach(button => {
     button.addEventListener("click", () => {
-      const id = button.getAttribute("button-delete");
-      console.log(id);
+      const link = button.getAttribute("button-delete");
 
-      fetch(`/admin/products/delete/${id}`, {
+      fetch(link, {
         method: "PATCH"
       })
         .then(res => res.json())

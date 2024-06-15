@@ -73,7 +73,7 @@ block main
                 button(class="btn btn-warning btn-sm") Sửa
                 button(
                   class="btn btn-danger btn-sm ml-1"
-                  button-delete=item.id
+                  button-delete=`/${prefixAdmin}/products/delete/${id}`
                 ) Xóa
 
   +pagination(pagination)
