@@ -137,7 +137,9 @@ if(boxActions) {
         ids: ids
       };
 
-      fetch("/admin/products/change-multi", {
+      const link = boxActions.getAttribute("box-actions");
+
+      fetch(link, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

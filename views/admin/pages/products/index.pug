@@ -2,6 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
+include ../../mixins/box-mixins.pug
 
 block main
   h1(class="mb-4") Quản lý sản phẩm
@@ -19,16 +20,7 @@ block main
   .card.mb-3
     .card-header Hành động
     .card-body
-      div(class="input-group" box-actions)
-        select(class="custom-select")
-          option(value='') Chọn hành động...
-          option(value='active') Hoạt động
-          option(value='inactive') Dừng hoạt động
-        .input-group-append
-          button(
-            class="btn btn-outline-secondary"
-            type='button'
-          ) Áp dụng
+      +box-mixins(`/${prefixAdmin}/products/change-multi`)
   
   .card.mb-3
     .card-header Danh sách
