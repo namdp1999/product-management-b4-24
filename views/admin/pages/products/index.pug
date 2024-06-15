@@ -5,6 +5,12 @@ include ../../mixins/pagination.pug
 include ../../mixins/box-actions.pug
 
 block main
+  - if (messages.success)
+    div(
+      class="alert alert-success show-alert"
+      show-alert="3000"
+    ) #{messages.success}
+
   h1(class="mb-4") Quản lý sản phẩm
 
   .card.mb-3
