@@ -2,7 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
-include ../../mixins/box-mixins.pug
+include ../../mixins/box-actions.pug
 
 block main
   h1(class="mb-4") Quản lý sản phẩm
@@ -20,7 +20,7 @@ block main
   .card.mb-3
     .card-header Hành động
     .card-body
-      +box-mixins(`/${prefixAdmin}/products/change-multi`)
+      +box-actions(`/${prefixAdmin}/products/change-multi`)
   
   .card.mb-3
     .card-header Danh sách
@@ -71,6 +71,9 @@ block main
                   ) Dừng hoạt động
               td
                 button(class="btn btn-warning btn-sm") Sửa
-                button(class="btn btn-danger btn-sm ml-1") Xóa
+                button(
+                  class="btn btn-danger btn-sm ml-1"
+                  button-delete=item.id
+                ) Xóa
 
   +pagination(pagination)
