@@ -115,6 +115,8 @@ module.exports.deleteItem = async (req, res) => {
     deleted: true
   });
 
+  req.flash('success', 'Xóa sản phẩm thành công!');
+
   res.json({
     code: 200
   });
