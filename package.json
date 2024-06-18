@@ -17,6 +17,7 @@
     "express-flash": "^0.0.2",
     "express-session": "^1.18.0",
     "mongoose": "^8.4.1",
+    "mongoose-slug-updater": "^3.3.0",
     "pug": "^3.0.3"
   },
   "devDependencies": {
