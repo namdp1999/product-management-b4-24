@@ -19,12 +19,15 @@ block main
       )
     div(class="form-group")
       label(for="parent_id") Danh mục cha
-      input(
-        type="text"
+      select(
+        name="parent_id"
         class="form-control"
         id="parent_id"
-        name="parent_id"
       )
+        option(value="") -- Chọn danh mục cha --
+        if(categories)
+          each item in categories
+            option(value=item.id) #{item.title}
     div(class="form-group")
       label(for="desc") Mô tả
       textarea(
