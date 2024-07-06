@@ -1,4 +1,5 @@
 extends ../../layouts/default.pug
+include ../../mixins/select-tree.pug
 
 block main
   h1(class="mb-4") Thêm mới danh mục sản phẩm
@@ -26,8 +27,7 @@ block main
       )
         option(value="") -- Chọn danh mục cha --
         if(categories)
-          each item in categories
-            option(value=item.id) #{item.title}
+          +select-tree(categories)
     div(class="form-group")
       label(for="desc") Mô tả
       textarea(
