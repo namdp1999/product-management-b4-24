@@ -18,6 +18,7 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  deletedBy: String,
   slug: {
     type: String,
     slug: "title",
