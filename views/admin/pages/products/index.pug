@@ -70,6 +70,7 @@ block main
                 th Vị trí
                 th Trạng thái
               th Tạo bởi
+              th Cập nhật
               th Hành động
 
           tbody
@@ -117,7 +118,9 @@ block main
                 td
                   div #{item.createdByFullName}
                   div #{item.createdAtFormat}
-                  //- div 20:22 15/07/2024
+                td
+                  div #{item.updatedByFullName}
+                  div #{item.updatedAtFormat}
                 td
                   a(
                     class="btn btn-info btn-sm"
