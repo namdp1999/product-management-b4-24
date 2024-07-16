@@ -1,0 +1,24 @@
+extends ../../layouts/default.pug
+
+block main
+  h1(class="mb-4") Thông tin cá nhân
+
+  if (account.avatar)
+    img(src=account.avatar width="150px" class="mb-3")
+
+  if (account.fullName)
+    p Họ tên: <b>#{account.fullName}</b>
+
+  if (account.email)
+    p Email: <b>#{account.email}</b>
+
+  if (account.phone)
+    p Số điện thoại: <b>#{account.phone}</b>
+
+  p 
+    span Trạng thái: 
+    span
+      <b>#{account.status === "active" ? "Hoạt động": "Dừng hoạt động"}</b>
+
+  if (role.title)
+    p Phân quyền: <b>#{role.title}</b>
