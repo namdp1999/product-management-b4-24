@@ -90,7 +90,7 @@ module.exports.detail = async (req, res) => {
 
   product.priceNew = ((1 - product.discountPercentage/100) * product.price).toFixed(0);
 
-  console.log(product);
+  // console.log(product);
 
   if(product) {
     res.render("client/pages/products/detail", {
