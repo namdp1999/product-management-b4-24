@@ -9,7 +9,7 @@ block main
 
     .row
       .col-12
-        table(class="table table-bordered")
+        table(class="table table-bordered" cart)
           thead
             tr
               th STT
@@ -41,7 +41,7 @@ block main
                       name="quantity"
                       value=product.quantity
                       min="1"
-                      item-id=""
+                      product-id=product.productId
                       style="width: 60px"
                     )
                   td #{product.totalPrice}$
