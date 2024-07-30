@@ -25,4 +25,6 @@ router.get("/password/reset", controller.resetPassword);
 
 router.patch("/password/reset", controller.resetPasswordPatch);
 
+router.get("/profile", controller.profile);
+
 module.exports = router;

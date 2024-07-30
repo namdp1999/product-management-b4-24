@@ -184,3 +184,10 @@ module.exports.resetPasswordPatch = async (req, res) => {
 
   res.redirect("/");
 };
+
+// [GET] /user/profile
+module.exports.profile = async (req, res) => {
+  res.render("client/pages/user/profile", {
+    pageTitle: "Thông tin cá nhân"
+  });
+};
