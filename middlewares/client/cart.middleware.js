@@ -1,8 +1,6 @@
 const Cart = require("../../models/cart.model");
 
 module.exports.cartId = async (req, res, next) => {
-  console.log("Chạy vào đây1");
-
   if(!req.cookies.cartId) {
     const cart = new Cart();
     await cart.save();
@@ -11,10 +9,9 @@ module.exports.cartId = async (req, res, next) => {
 
     res.cookie(
       "cartId", 
-      cart._id.toString(), // Đảm bảo sử dụng cart._id.toString()
+      cart.id, 
       { 
-        expires: new Date(Date.now() + expires),
-        httpOnly: true, // Bảo mật cookie
+        expires: new Date(Date.now() + expires)
       });
   } else {
     const cart = await Cart.findOne({
