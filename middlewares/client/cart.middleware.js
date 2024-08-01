@@ -11,9 +11,10 @@ module.exports.cartId = async (req, res, next) => {
 
     res.cookie(
       "cartId", 
-      cart.id, 
+      cart._id.toString(), // Đảm bảo sử dụng cart._id.toString()
       { 
-        expires: new Date(Date.now() + expires)
+        expires: new Date(Date.now() + expires),
+        httpOnly: true, // Bảo mật cookie
       });
   } else {
     const cart = await Cart.findOne({
