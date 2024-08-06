@@ -228,6 +228,8 @@
 
 .chat .inner-body {
   padding: 10px;
+  height: 450px;
+  overflow-y: scroll;
 }
 
 .chat .inner-body .inner-name {

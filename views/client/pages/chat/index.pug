@@ -9,10 +9,7 @@ block main
 
     .row
       .col-12
-        .chat
-          //- .inner-head
-          //-   .inner-avatar EY
-          //-   .inner-name Em Yêu
+        .chat(my-id=user.id)
           .inner-body
             each chat in chats
               div(
@@ -22,20 +19,6 @@ block main
                   .inner-name #{chat.fullName}
                 .inner-content
                   | #{chat.content}
-            //- .inner-outgoing
-            //-   .inner-content
-            //-     | Thế à? Ok e iu
-            //- .inner-incoming
-            //-   .inner-name Em Yêu
-            //-   .inner-content
-            //-     | Nhanh nha nhanh nha
-            //- .inner-outgoing
-            //-   .inner-content
-            //-     | Ck đến rồi mà thấy ai ở nhà đâu e? Khóa cửa mà :(
-            //- .inner-incoming
-            //-   .inner-name Em Yêu
-            //-   .inner-content
-            //-     | Thì em bảo nhà e không ai ở nhà mà :))
           .inner-foot
             form(
               class="inner-form"
