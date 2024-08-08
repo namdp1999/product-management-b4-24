@@ -45,15 +45,23 @@ socket.on("SERVER_RETURN_TYPING", (data) => {
 // CLIENT_SEND_MESSAGE
 const formChat = document.querySelector(".chat .inner-form");
 if(formChat) {
+  const upload = new FileUploadWithPreview.FileUploadWithPreview('upload-images', {
+    multiple: true,
+    maxFileCount: 6
+  });
+
   formChat.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const content = event.target.content.value;
-    if(content) {
+    const content = event.target.content.value || "";
+    const images = upload.cachedFileArray;
+    if(content || images.length > 0) {
       socket.emit("CLIENT_SEND_MESSAGE", {
-        content: content
+        content: content,
+        images: images
       });
       event.target.content.value = "";
+      upload.resetPreviewPanel();
       socket.emit("CLIENT_SEND_TYPING", "hidden");
     }
   })
@@ -66,6 +74,8 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
 
   const div = document.createElement("div");
   let htmlFullName = "";
+  let htmlContent = "";
+  let htmlImages = "";
 
   if(data.userId == myId) {
     div.classList.add("inner-outgoing");
@@ -74,9 +84,30 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     htmlFullName = `<div class="inner-name">${data.fullName}</div>`;
   }
 
+  if(data.content) {
+    htmlContent = `<div class="inner-content">${data.content}</div>`;
+  }
+
+  if(data.images.length > 0) {
+    htmlImages += `
+      <div class="inner-images">
+    `;
+
+    for (const image of data.images) {
+      htmlImages += `
+        <img src="${image}">
+      `;
+    }
+
+    htmlImages += `
+      </div>
+    `;
+  }
+
   div.innerHTML = `
     ${htmlFullName}
-    <div class="inner-content">${data.content}</div>
+    ${htmlContent}
+    ${htmlImages}
   `;
 
   const body = document.querySelector(".chat .inner-body");
