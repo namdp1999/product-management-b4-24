@@ -1,3 +1,5 @@
+var socket = io();
+
 // Cập nhật số lượng sản phẩm trong giỏ hàng
 const listInputQuantity = document.querySelectorAll("[cart] input[name='quantity']");
 if(listInputQuantity.length > 0) {
