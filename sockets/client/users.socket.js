@@ -105,6 +105,11 @@ module.exports = (req, res) => {
         userId: userIdB
       });
 
+      // Trả về cho B id của A
+      socket.broadcast.emit("SERVER_RETURN_ID_CANCEL_FRIEND", {
+        userIdA: userIdA,
+        userIdB: userIdB
+      });
     })
     // Hết Chức năng hủy gửi yêu cầu
 

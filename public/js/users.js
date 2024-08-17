@@ -78,6 +78,7 @@ socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
   if(dataUsersAccept) {
     const boxUserA = document.createElement("div");
     boxUserA.classList.add("col-6");
+    boxUserA.setAttribute("user-id", data.infoA._id);
     boxUserA.innerHTML = `
       <div class="box-user">
         <div class="inner-avatar">
@@ -141,3 +142,17 @@ socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
   }
 })
 // End SERVER_RETURN_INFO_ACCEPT_FRIEND
+
+// SERVER_RETURN_ID_CANCEL_FRIEND
+socket.on("SERVER_RETURN_ID_CANCEL_FRIEND", (data) => {
+  const dataUsersAccept = document.querySelector(`[data-users-accept="${data.userIdB}"]`);
+
+  if(dataUsersAccept) {
+    const boxUserA = dataUsersAccept.querySelector(`[user-id="${data.userIdA}"]`);
+
+    if(boxUserA) {
+      dataUsersAccept.removeChild(boxUserA);
+    }
+  }
+})
+// End SERVER_RETURN_ID_CANCEL_FRIEND
