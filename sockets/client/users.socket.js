@@ -58,6 +58,12 @@ module.exports = (req, res) => {
         userIdB: userIdB,
         infoA: infoA
       });
+
+      // Lấy id của A để trả về cho B
+      socket.broadcast.emit("SERVER_RETURN_ID_ACCEPT_FRIEND", {
+        userIdA: userIdA,
+        userIdB: userIdB
+      })
     })
     // End Khi A gửi yêu cầu cho B
 
