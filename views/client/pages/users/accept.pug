@@ -8,9 +8,9 @@ block main
 
     .row
       .col-12
-        +box-head("Lời mời kết bạn")
+        +box-head("Lời mời đã nhận")
 
-    .row
+    .row(data-users-accept=user.id)
       each user in users
         .col-6
           div(class="box-user")
