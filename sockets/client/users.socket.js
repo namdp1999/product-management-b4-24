@@ -1,3 +1,4 @@
+const RoomChat = require("../../models/rooms-chat.model");
 const User = require("../../models/user.model");
 
 module.exports = (req, res) => {
@@ -158,52 +159,72 @@ module.exports = (req, res) => {
 
     // Chức năng chấp nhận kết bạn
     socket.on("CLIENT_ACCEPT_FRIEND", async (userIdB) => {
-      // Thêm {userId, roomChatId} của B vào friendsList của A
-      // Xóa id của B trong acceptFriends của A
-      const existUserBInA = await User.findOne({
-        _id: userIdA,
-        acceptFriends: userIdB
-      });
-
-      if(existUserBInA) {
-        await User.updateOne({
-          _id: userIdA
-        }, {
-          $push: {
-            friendsList: {
-              userId: userIdB,
-              roomChatId: ""
-            }
-          },
-          $pull: {
-            acceptFriends: userIdB
-          }
-        });
-      }
-
-      // Thêm {userId, roomChatId} của A vào friendsList của B
-      // Xóa id của A trong requestFriends của B
-      const existUserAInB = await User.findOne({
-        _id: userIdB,
-        requestFriends: userIdA
-      });
-
-      if(existUserAInB) {
-        await User.updateOne({
-          _id: userIdB
-        }, {
-          $push: {
-            friendsList: {
+      try {
+        // Tạo phòng chat chung
+        const roomChat = new RoomChat({
+          typeRoom: "friend",
+          users: [
+            {
               userId: userIdA,
-              roomChatId: ""
+              role: "superAdmin"
+            },
+            {
+              userId: userIdB,
+              role: "superAdmin"
             }
-          },
-          $pull: {
-            requestFriends: userIdA
-          }
+          ],
         });
-      }
 
+        await roomChat.save();
+        
+        // Thêm {userId, roomChatId} của B vào friendsList của A
+        // Xóa id của B trong acceptFriends của A
+        const existUserBInA = await User.findOne({
+          _id: userIdA,
+          acceptFriends: userIdB
+        });
+
+        if(existUserBInA) {
+          await User.updateOne({
+            _id: userIdA
+          }, {
+            $push: {
+              friendsList: {
+                userId: userIdB,
+                roomChatId: roomChat.id
+              }
+            },
+            $pull: {
+              acceptFriends: userIdB
+            }
+          });
+        }
+
+        // Thêm {userId, roomChatId} của A vào friendsList của B
+        // Xóa id của A trong requestFriends của B
+        const existUserAInB = await User.findOne({
+          _id: userIdB,
+          requestFriends: userIdA
+        });
+
+        if(existUserAInB) {
+          await User.updateOne({
+            _id: userIdB
+          }, {
+            $push: {
+              friendsList: {
+                userId: userIdA,
+                roomChatId: roomChat.id
+              }
+            },
+            $pull: {
+              requestFriends: userIdA
+            }
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     })
     // Hết Chức năng chấp nhận kết bạn
 
