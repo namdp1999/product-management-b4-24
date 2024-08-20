@@ -4,14 +4,18 @@ const streamUpload = require("../../helpers/streamUpload.helper");
 module.exports = (req, res) => {
   const userId = res.locals.user.id;
   const fullName = res.locals.user.fullName;
+  const roomChatId = req.params.roomChatId;
 
   _io.once("connection", (socket) => {
+
+    socket.join(roomChatId);
     
     // CLIENT_SEND_MESSAGE
     socket.on("CLIENT_SEND_MESSAGE", async (data) => {
       const chatData = {
         userId: userId,
-        content: data.content
+        content: data.content,
+        roomChatId: roomChatId
       };
 
       const linkImages = [];
@@ -28,7 +32,7 @@ module.exports = (req, res) => {
       await chat.save();
 
       // Trả tin nhắn realtime về cho mọi người (Làm sau)
-      _io.emit("SERVER_RETURN_MESSAGE", {
+      _io.to(roomChatId).emit("SERVER_RETURN_MESSAGE", {
         userId: userId,
         fullName: fullName,
         content: data.content,
@@ -38,7 +42,7 @@ module.exports = (req, res) => {
 
     // CLIENT_SEND_TYPING
     socket.on("CLIENT_SEND_TYPING", (type) => {
-      socket.broadcast.emit("SERVER_RETURN_TYPING", {
+      socket.broadcast.to(roomChatId).emit("SERVER_RETURN_TYPING", {
         userId: userId,
         fullName: fullName,
         type: type
